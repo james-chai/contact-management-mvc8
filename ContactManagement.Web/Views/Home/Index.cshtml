@@ -1,0 +1,129 @@
+﻿@using ContactManagement.Core
+@model List<Contact>
+
+@{
+    ViewData["Title"] = "Contacts";
+}
+
+<div class="container">
+    <div class="row mb-4">
+        <div class="col-12 col-md-6 mb-3 mb-md-0">
+            <h1 class="display-4 mb-0">Contacts</h1>
+        </div>
+        <div class="col-12 col-md-6">
+            <form asp-controller="Home" asp-action="Index" method="get" id="searchForm" class="form-inline">
+                <div class="input-group w-100">
+                    <input type="text" class="form-control" name="searchTerm"
+                           placeholder="Search contacts..." value="@ViewBag.SearchTerm" id="searchInput">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="submit" id="searchButton">
+                            <span id="searchIcon"><i class="fas fa-search"></i></span>
+                            <span id="searchSpinner" class="spinner-border spinner-border-sm d-none" role="status"></span>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="mb-3">
+        <a asp-controller="Contacts" asp-action="Create" class="btn btn-success">
+            <i class="fas fa-plus"></i> Create New
+        </a>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info">
+            @if (!string.IsNullOrEmpty(ViewBag.SearchTerm))
+            {
+                <span>No contacts found matching '@ViewBag.SearchTerm'</span>
+            }
+            else
+            {
+                <span>No contacts found</span>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>@Html.DisplayNameFor(model => model[0].FirstName)</th>
+                        <th>@Html.DisplayNameFor(model => model[0].LastName)</th>
+                        <th class="d-none d-md-table-cell">@Html.DisplayNameFor(model => model[0].CompanyName)</th>
+                        <th class="d-none d-sm-table-cell">@Html.DisplayNameFor(model => model[0].Mobile)</th>
+                        <th class="d-none d-lg-table-cell">@Html.DisplayNameFor(model => model[0].Email)</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@Html.DisplayFor(modelItem => item.FirstName)</td>
+                            <td>@Html.DisplayFor(modelItem => item.LastName)</td>
+                            <td class="d-none d-md-table-cell">@Html.DisplayFor(modelItem => item.CompanyName)</td>
+                            <td class="d-none d-sm-table-cell">@Html.DisplayFor(modelItem => item.Mobile)</td>
+                            <td class="d-none d-lg-table-cell">@Html.DisplayFor(modelItem => item.Email)</td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group">
+                                    <a asp-controller="Contacts" asp-action="Edit" asp-route-id="@item.Id"
+                                       class="btn btn-primary">
+                                        <i class="fas fa-edit"></i> <span class="d-none d-md-inline">Edit</span>
+                                    </a>
+                                    <a asp-controller="Contacts" asp-action="Details" asp-route-id="@item.Id"
+                                       class="btn btn-info">
+                                        <i class="fas fa-info-circle"></i> <span class="d-none d-md-inline">Details</span>
+                                    </a>
+                                    <a asp-controller="Contacts" asp-action="Delete" asp-route-id="@item.Id"
+                                       class="btn btn-danger">
+                                        <i class="fas fa-trash-alt"></i> <span class="d-none d-md-inline">Delete</span>
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        $(function() {
+            $('#searchForm').submit(function() {
+                $('#searchButton').prop('disabled', true);
+                $('#searchIcon').addClass('d-none');
+                $('#searchSpinner').removeClass('d-none');
+            });
+        });
+    </script>
+    <style>
+        /* Improved responsive table behavior */
+        @@media (max-width: 767.98px) {
+            .btn-group {
+                display: flex;
+                flex-direction: column;
+            }
+
+                .btn-group .btn {
+                    margin-bottom: 0.25rem;
+                    width: 100%;
+                }
+
+                    .btn-group .btn:last-child {
+                        margin-bottom: 0;
+                    }
+        }
+        /* Better spacing for mobile */
+        @@media (max-width: 575.98px) {
+            .input-group {
+                width: 100% !important;
+            }
+        }
+    </style>
+}

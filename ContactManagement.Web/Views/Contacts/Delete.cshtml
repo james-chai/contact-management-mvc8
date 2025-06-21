@@ -1,0 +1,90 @@
+﻿@model ContactManagement.Core.Contact
+
+@{
+    ViewData["Title"] = "Delete Contact";
+}
+
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header bg-danger text-white">
+            <h3 class="mb-0">Delete Contact</h3>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3 g-0 border-bottom">
+                <!-- Added g-0 to remove gutters -->
+                <label class="col-sm-2 col-form-label ps-0">@Html.DisplayNameFor(model => model.FirstName)</label>
+                <div class="col-sm-10 pe-0">
+                    <div class="form-control-plaintext border-bottom-0">@Html.DisplayFor(model => model.FirstName)</div>
+                </div>
+            </div>
+
+            <div class="row mb-3 g-0 border-bottom">
+                <label class="col-sm-2 col-form-label ps-0">@Html.DisplayNameFor(model => model.LastName)</label>
+                <div class="col-sm-10 pe-0">
+                    <div class="form-control-plaintext border-bottom-0">@Html.DisplayFor(model => model.LastName)</div>
+                </div>
+            </div>
+
+            <div class="row mb-3 g-0 border-bottom">
+                <label class="col-sm-2 col-form-label ps-0">@Html.DisplayNameFor(model => model.CompanyName)</label>
+                <div class="col-sm-10 pe-0">
+                    <div class="form-control-plaintext border-bottom-0">
+                        @(string.IsNullOrEmpty(Model.CompanyName) ? Html.Raw("&nbsp;") : Model.CompanyName)
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mb-3 g-0 border-bottom">
+                <label class="col-sm-2 col-form-label ps-0">@Html.DisplayNameFor(model => model.Mobile)</label>
+                <div class="col-sm-10 pe-0">
+                    <div class="form-control-plaintext border-bottom-0">@Html.DisplayFor(model => model.Mobile)</div>
+                </div>
+            </div>
+
+            <div class="row mb-3 g-0">
+                <!-- Last row - no border -->
+                <label class="col-sm-2 col-form-label ps-0">@Html.DisplayNameFor(model => model.Email)</label>
+                <div class="col-sm-10 pe-0">
+                    <div class="form-control-plaintext">@Html.DisplayFor(model => model.Email)</div>
+                </div>
+            </div>
+
+            <form asp-action="DeleteConfirmed" id="deleteForm" class="mt-4">
+                <input type="hidden" asp-for="Id" />
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-danger" onclick="confirmDelete(event)">
+                        <i class="bi bi-trash"></i> Delete
+                    </button>
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">
+                        <i class="bi bi-arrow-left"></i> Back to List
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function confirmDelete(e) {
+            e.preventDefault();
+
+            Swal.fire({
+                title: 'Confirm Delete',
+                text: "This action cannot be undone",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Delete',
+                cancelButtonText: 'Cancel',
+                focusCancel: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    document.getElementById('deleteForm').submit();
+                }
+            });
+        }
+    </script>
+}
