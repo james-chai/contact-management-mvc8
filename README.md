@@ -36,35 +36,36 @@ Ensure the following tools/SDKs are installed:
 
 4. Connection String Setup
    
-	Option1: User Secrets (Recommended for Development) in Visual Studio
-             (User Secrets only work in .NET Core / .NET 5+ projects)
-	   1. Right-click ContactManagement.MVC8 project in Solution Explorer (must be a .NET Core or .NET 8 project)
-	   2. Select "Manage User Secrets"
-	   3. This opens a secrets.json file. Add your connection string like this:   
-			 {
-			   "ConnectionStrings": {
-				 "ContactManagementDb": "Server=localhost;Database=ContactManagement_NET_8_0;User Id=sa;Password=P@ssw0rd;TrustServerCertificate=True;"
-			   }
-			 }
+	Option1: add to User Secrets from Visual Studio 2022 (Recommended for Development, User Secrets only work in .NET Core / .NET 5+ projects)
+	   
+       - Right-click ContactManagement.Web project in Solution Explorer (must be a .NET Core or .NET 8 project)
+	   - Select "Manage User Secrets"
+	   - This opens a secrets.json file. Add your connection string like this:   
+		{
+			"ConnectionStrings:ContactManagementDb": "Server=localhost;Database=ContactManagement_MVC8;User Id=sa;Password=YourPassword;TrustServerCertificate=True;"
+		}
 
-	Option2: User Secrets using dotnet CLI (Recommended for Development)
+	Option2: add to User Secrets using dotnet CLI
 		
-	   dotnet user-secrets init --project ContactManagement.MVC8
-       dotnet user-secrets set "ConnectionStrings:ContactManagementDb" "Server=localhost;Database=ContactManagement_MVC8;User Id=sa;Password=P@ssw0rd;TrustServerCertificate=True;"
+	   dotnet user-secrets init --project ContactManagement.Web
+       dotnet user-secrets set "ConnectionStrings:ContactManagementDb" "Server=localhost;Database=ContactManagement_MVC8;User Id=sa;Password=YourPassword;TrustServerCertificate=True;"
         
-	Option 3: appsettings.json/appsettings.Development.json of the ContactManagement.MVC8 project
+	Option 3: add to appsettings.json/appsettings.Development.json of the ContactManagement.Web project
 
    		  "ConnectionStrings": {
 			"ContactManagementDb": "<set from User Secrets>"
 		  }
 
 #### How to run ContactManagement_MVC8 application
-- Open the ContactManagement_MVC8 solution in Visual Studio 2022
-- Set ContactManagement.Web as the startup project
-- Then launch it
+	- Open the ContactManagement_MVC8 solution in Visual Studio 2022.
+	- Right-click the solution in the Solution Explorer and select Clean Solution.
+	- Right-click the solution in the Solution Explorer and select Restore NuGet Packages.
+	- Update the connection string in User Secrets or appsettings.Development.json.
+	- Set ContactManagement.Web as the startup project.
+	- Launch the application.
 
 ##### Solution Structure
-
+```
 ContactManagement.MVC8/
 ├── ContactManagement_MVC8.sln
 │
@@ -74,7 +75,7 @@ ContactManagement.MVC8/
 │   ├── Models/
 │   ├── Program.cs
 │   ├── appsettings.json
-│   │   └── launchSettings.json
+│   │   └── appsettings.Development.json
 │   └── Properties/
 │       └── launchSettings.json
 │
@@ -86,9 +87,9 @@ ContactManagement.MVC8/
     ├── ContactDbContext.cs
     ├── IContactData.cs
     ├── SqlContactData.cs
-	├── DesignTimeDbContextFactory.cs
+    ├── DesignTimeDbContextFactory.cs
     └── Migrations/
-
+```
 ###### EF Core 8 Database Migrations
 
 **NOTE**: Do not use an existing database. 
@@ -102,7 +103,7 @@ However, if you prefer to apply migrations and create the database manually, fol
 
 	1. Set ContactManagement.Web as the Startup Project in Visual Studio 2022
 	2. Ensure the connection string is configured correctly. Refer to ### Prerequisites 3 for setup instructions.
-	3. Open the Command Prompt and navigate to the root folder of the solution (/ContactManagement.MVC8)
+	3. Open the Command Prompt and navigate to the root folder of the solution (/ContactManagement.Web)
 					
 Then run the following commands:
 
@@ -111,5 +112,5 @@ Then run the following commands:
 		
 If you encounter issues running 'dotnet ef database update', try the following command instead. Make sure to replace the connection string with your own
      
-    dotnet ef database update --project ContactManagement.Data --startup-project ContactManagement.Web --connection "Server=localhost;Database=ContactManagement_MVC8;User Id=sa;Password=P@ssw0rd;TrustServerCertificate=True;"
+    dotnet ef database update --project ContactManagement.Data --startup-project ContactManagement.Web --connection "Server=localhost;Database=ContactManagement_MVC8;User Id=sa;Password=YourPassword;TrustServerCertificate=True;"
  
