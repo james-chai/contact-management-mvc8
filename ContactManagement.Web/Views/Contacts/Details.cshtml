@@ -8,24 +8,31 @@
     <div class="row">
         <div class="col-md-8 mx-auto">
             <div class="card">
-                <div class="card-header bg-primary text-white py-3">
+                <div class="card-header bg-info text-white py-3">
                     <h4 class="mb-0">Contact Details</h4>
                 </div>
                 <div class="card-body">
                     <dl class="row mb-0">
-                        <dt class="col-sm-4 text-sm-right font-weight-bold">@Html.DisplayNameFor(model => model.FirstName)</dt>
+                        <dt class="col-sm-4 text-sm-right font-weight-bold">@Html.DisplayNameFor(model =>
+                                                        model.FirstName)</dt>
                         <dd class="col-sm-8 border-bottom pb-2">@Html.DisplayFor(model => model.FirstName)</dd>
 
-                        <dt class="col-sm-4 text-sm-right font-weight-bold">@Html.DisplayNameFor(model => model.LastName)</dt>
+                        <dt class="col-sm-4 text-sm-right font-weight-bold">@Html.DisplayNameFor(model =>
+                                                        model.LastName)</dt>
                         <dd class="col-sm-8 border-bottom pb-2">@Html.DisplayFor(model => model.LastName)</dd>
 
-                        <dt class="col-sm-4 text-sm-right font-weight-bold">@Html.DisplayNameFor(model => model.CompanyName)</dt>
-                        <dd class="col-sm-8 border-bottom pb-2">@(string.IsNullOrEmpty(Model.CompanyName) ? "N/A" : Model.CompanyName)</dd>
+                        <dt class="col-sm-4 text-sm-right font-weight-bold">@Html.DisplayNameFor(model =>
+                                                        model.CompanyName)</dt>
+                        <dd class="col-sm-8 border-bottom pb-2">@(string.IsNullOrEmpty(Model.CompanyName) ? "N/A" :
+                                                        Model.CompanyName)</dd>
 
-                        <dt class="col-sm-4 text-sm-right font-weight-bold">@Html.DisplayNameFor(model => model.Mobile)</dt>
-                        <dd class="col-sm-8 border-bottom pb-2">@(string.IsNullOrEmpty(Model.Mobile) ? "N/A" : Model.Mobile)</dd>
+                        <dt class="col-sm-4 text-sm-right font-weight-bold">@Html.DisplayNameFor(model => model.Mobile)
+                        </dt>
+                        <dd class="col-sm-8 border-bottom pb-2">@(string.IsNullOrEmpty(Model.Mobile) ? "N/A" :
+                                                        Model.Mobile)</dd>
 
-                        <dt class="col-sm-4 text-sm-right font-weight-bold">@Html.DisplayNameFor(model => model.Email)</dt>
+                        <dt class="col-sm-4 text-sm-right font-weight-bold">@Html.DisplayNameFor(model => model.Email)
+                        </dt>
                         <dd class="col-sm-8 pb-2">@Model.Email</dd>
                     </dl>
                 </div>
@@ -33,11 +40,11 @@
                     <div class="d-flex justify-content-between">
                         <div>
                             <a asp-controller="Contacts" asp-action="Edit" asp-route-id="@Model.Id"
-                               class="btn btn-primary btn-sm mr-2">
+                                class="btn btn-primary btn-sm mr-2">
                                 <i class="fas fa-edit"></i> Edit
                             </a>
                             <a asp-controller="Contacts" asp-action="Delete" asp-route-id="@Model.Id"
-                               class="btn btn-danger btn-sm">
+                                class="btn btn-danger btn-sm">
                                 <i class="fas fa-trash-alt"></i> Delete
                             </a>
                         </div>
@@ -65,7 +72,8 @@
             text-align: left !important;
         }
 
-        .card-body dt, .card-body dd {
+        .card-body dt,
+        .card-body dd {
             padding-top: 0.4rem;
             padding-bottom: 0.4rem;
         }

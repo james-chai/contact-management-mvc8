@@ -4,62 +4,54 @@
     ViewData["Title"] = "Delete Contact";
 }
 
-<div class="container mt-4">
-    <div class="card shadow">
-        <div class="card-header bg-danger text-white">
-            <h3 class="mb-0">Delete Contact</h3>
-        </div>
-        <div class="card-body">
-            <div class="row mb-3 g-0 border-bottom">
-                <!-- Added g-0 to remove gutters -->
-                <label class="col-sm-2 col-form-label ps-0">@Html.DisplayNameFor(model => model.FirstName)</label>
-                <div class="col-sm-10 pe-0">
-                    <div class="form-control-plaintext border-bottom-0">@Html.DisplayFor(model => model.FirstName)</div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-header bg-danger text-white py-3"> <!-- Changed to bg-danger -->
+                    <h4 class="mb-0">Delete Contact</h4> <!-- Changed title -->
+                </div>
+                <div class="card-body">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-4 text-sm-right font-weight-bold">@Html.DisplayNameFor(model =>
+                                                        model.FirstName)</dt>
+                        <dd class="col-sm-8 border-bottom pb-2">@Html.DisplayFor(model => model.FirstName)</dd>
+
+                        <dt class="col-sm-4 text-sm-right font-weight-bold">@Html.DisplayNameFor(model =>
+                                                        model.LastName)</dt>
+                        <dd class="col-sm-8 border-bottom pb-2">@Html.DisplayFor(model => model.LastName)</dd>
+
+                        <dt class="col-sm-4 text-sm-right font-weight-bold">@Html.DisplayNameFor(model =>
+                                                        model.CompanyName)</dt>
+                        <dd class="col-sm-8 border-bottom pb-2">@(string.IsNullOrEmpty(Model.CompanyName) ? "N/A" :
+                                                        Model.CompanyName)</dd>
+
+                        <dt class="col-sm-4 text-sm-right font-weight-bold">@Html.DisplayNameFor(model => model.Mobile)
+                        </dt>
+                        <dd class="col-sm-8 border-bottom pb-2">@(string.IsNullOrEmpty(Model.Mobile) ? "N/A" :
+                                                        Model.Mobile)</dd>
+
+                        <dt class="col-sm-4 text-sm-right font-weight-bold">@Html.DisplayNameFor(model => model.Email)
+                        </dt>
+                        <dd class="col-sm-8 pb-2">@Model.Email</dd>
+                    </dl>
+                </div>
+                <div class="card-footer bg-light py-3">
+                    <form asp-action="DeleteConfirmed" id="deleteForm">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="confirmDelete(event)">
+                                    <i class="fas fa-trash-alt"></i> Confirm Delete
+                                </button>
+                            </div>
+                            <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary btn-sm">
+                                <i class="fas fa-arrow-left"></i> Back to List
+                            </a>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-            <div class="row mb-3 g-0 border-bottom">
-                <label class="col-sm-2 col-form-label ps-0">@Html.DisplayNameFor(model => model.LastName)</label>
-                <div class="col-sm-10 pe-0">
-                    <div class="form-control-plaintext border-bottom-0">@Html.DisplayFor(model => model.LastName)</div>
-                </div>
-            </div>
-
-            <div class="row mb-3 g-0 border-bottom">
-                <label class="col-sm-2 col-form-label ps-0">@Html.DisplayNameFor(model => model.CompanyName)</label>
-                <div class="col-sm-10 pe-0">
-                    <div class="form-control-plaintext border-bottom-0">
-                        @(string.IsNullOrEmpty(Model.CompanyName) ? Html.Raw("&nbsp;") : Model.CompanyName)
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mb-3 g-0 border-bottom">
-                <label class="col-sm-2 col-form-label ps-0">@Html.DisplayNameFor(model => model.Mobile)</label>
-                <div class="col-sm-10 pe-0">
-                    <div class="form-control-plaintext border-bottom-0">@Html.DisplayFor(model => model.Mobile)</div>
-                </div>
-            </div>
-
-            <div class="row mb-3 g-0">
-                <!-- Last row - no border -->
-                <label class="col-sm-2 col-form-label ps-0">@Html.DisplayNameFor(model => model.Email)</label>
-                <div class="col-sm-10 pe-0">
-                    <div class="form-control-plaintext">@Html.DisplayFor(model => model.Email)</div>
-                </div>
-            </div>
-
-            <form asp-action="DeleteConfirmed" id="deleteForm" class="mt-4">
-                <input type="hidden" asp-for="Id" />
-                <div class="d-flex gap-2">
-                    <button type="submit" class="btn btn-danger" onclick="confirmDelete(event)">
-                        <i class="bi bi-trash"></i> Delete
-                    </button>
-                    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary">
-                        <i class="bi bi-arrow-left"></i> Back to List
-                    </a>
-                </div>
-            </form>
         </div>
     </div>
 </div>

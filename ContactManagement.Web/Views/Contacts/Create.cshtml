@@ -4,71 +4,83 @@
     ViewData["Title"] = "Create Contact";
 }
 
-<div class="container mt-4">
-    <h2>Create Contact</h2>
-    <hr />
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white py-3">
+                    <h4 class="mb-0">Create Contact</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Create" method="post">
+                        <input type="hidden" asp-for="Id" />
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <form asp-action="Create">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <dl class="row mb-0">
+                            <dt class="col-sm-4 text-sm-right font-weight-bold">
+                                <label asp-for="FirstName"></label>
+                            </dt>
+                            <dd class="col-sm-8 pb-2">
+                                <input asp-for="FirstName" class="form-control" />
+                                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            </dd>
 
-        <div class="row mb-3">
-            <label asp-for="FirstName" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-6">
-                <input asp-for="FirstName" class="form-control" style="width: 300px;" />
-                <span asp-validation-for="FirstName" class="text-danger"></span>
+                            <dt class="col-sm-4 text-sm-right font-weight-bold">
+                                <label asp-for="LastName"></label>
+                            </dt>
+                            <dd class="col-sm-8 pb-2">
+                                <input asp-for="LastName" class="form-control" />
+                                <span asp-validation-for="LastName" class="text-danger"></span>
+                            </dd>
+
+                            <dt class="col-sm-4 text-sm-right font-weight-bold">
+                                <label asp-for="CompanyName"></label>
+                            </dt>
+                            <dd class="col-sm-8 pb-2">
+                                <input asp-for="CompanyName" class="form-control" />
+                                <span asp-validation-for="CompanyName" class="text-danger"></span>
+                            </dd>
+
+                            <dt class="col-sm-4 text-sm-right font-weight-bold">
+                                <label asp-for="Mobile"></label>
+                            </dt>
+                            <dd class="col-sm-8 pb-2">
+                                <input asp-for="Mobile" class="form-control" pattern="\d{10}"
+                                    title="Please enter exactly 10 digits" />
+                                <span asp-validation-for="Mobile" class="text-danger"></span>
+                            </dd>
+
+                            <dt class="col-sm-4 text-sm-right font-weight-bold">
+                                <label asp-for="Email"></label>
+                            </dt>
+                            <dd class="col-sm-8 pb-2">
+                                <input asp-for="Email" class="form-control" type="email" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </dd>
+                        </dl>
+                        <div class="card-footer bg-light py-3">
+                            <div class="d-flex justify-content-between">
+                                <button type="submit" class="btn btn-primary btn-sm"> <!-- Blue submit button -->
+                                    <i class="fas fa-save"></i> Save Changes
+                                </button>
+                                <a asp-controller="Home" asp-action="Index" class="btn btn-outline-secondary btn-sm">
+                                    <i class="fas fa-arrow-left"></i> Back to List
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-
-        <div class="row mb-3">
-            <label asp-for="LastName" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-6">
-                <input asp-for="LastName" class="form-control" style="width: 300px;" />
-                <span asp-validation-for="LastName" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <label asp-for="CompanyName" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-6">
-                <input asp-for="CompanyName" class="form-control" style="width: 300px;" />
-                <span asp-validation-for="CompanyName" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <label asp-for="Mobile" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-6">
-                <input asp-for="Mobile" class="form-control"
-                       style="width: 300px;"
-                       pattern="\d{10}"
-                       title="Please enter exactly 10 digits" />
-                <span asp-validation-for="Mobile" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <label asp-for="Email" class="col-sm-2 col-form-label"></label>
-            <div class="col-sm-6">
-                <input asp-for="Email" class="form-control" style="width: 300px;" type="email" />
-                <span asp-validation-for="Email" class="text-danger"></span>
-            </div>
-        </div>
-
-        <div class="row mb-3">
-            <div class="col-sm-6 offset-sm-2">
-                <button type="submit" class="btn btn-primary">Create</button>
-                <a asp-controller="Home" asp-action="Index" class="btn btn-secondary ms-2">Back to List</a>
-            </div>
-        </div>
-    </form>
+    </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 
     <script>
-        $(document).ready(function() {
-            $.validator.addMethod("exactlength", function(value, element, param) {
+        $(document).ready(function () {
+            $.validator.addMethod("exactlength", function (value, element, param) {
                 return this.optional(element) || value.length === param;
             }, "Mobile number must be exactly 10 digits");
 
